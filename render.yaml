@@ -19,4 +19,5 @@ services:
     buildCommand: npm install && npm run build
     envVars:
       - key: REACT_APP_SERVER_URL
+        value: "https://communication-platform.onrender.com"
         scope: build_time
