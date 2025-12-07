@@ -9,16 +9,22 @@ const server = http.createServer(app);
 const fs = require('fs');
 const path = require('path');
 
-// Configure CORS for Socket.io
+// Configure allowed origins using environment variable and include localhost for development
+const allowedOrigins = [
+  process.env.CLIENT_URL || 'https://communication-platform-1.onrender.com',
+  'http://localhost:3000'
+];
+
+app.use(cors({ origin: allowedOrigins, credentials: true }));
+
+// Configure CORS for Socket.io using the same allowed origins
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true
   }
 });
-
-app.use(cors());
 app.use(express.json());
 
 // Store active rooms and their participants
