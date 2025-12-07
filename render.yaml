@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: video-platform-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: CLIENT_URL
+        scope: run_time
+
+  - type: static_site
+    name: video-platform-frontend
+    staticPublishPath: build
+    buildCommand: npm install && npm run build
+    envVars:
+      - key: REACT_APP_SERVER_URL
+        scope: build_time
