@@ -16,7 +16,7 @@ import {
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || 'https://communication-platform.onrender.com';
 
 function HomePage({ onJoinRoom }) {
   const [roomId, setRoomId] = useState('');
