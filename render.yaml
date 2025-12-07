@@ -11,6 +11,7 @@ services:
       - key: PORT
         value: 5000
       - key: CLIENT_URL
+        value: "https://communication-platform-1.onrender.com"
         scope: run_time
 
   - type: static_site

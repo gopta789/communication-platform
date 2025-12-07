@@ -1,3 +1,4 @@
+````markdown
 # Render Deployment - Quick Start (5 Steps)
 
 ## Step 1: Push to GitHub
@@ -24,12 +25,12 @@ Replace `YOUR_USERNAME` with your GitHub username and create the repo at https:/
    - **Plan:** Free
 5. Click **"Create Web Service"**
 6. Wait 2-3 minutes for deployment
-7. **Copy your backend URL** (looks like: `https://video-platform-backend.onrender.com`)
+7. **Copy your backend URL** (looks like: `https://communication-platform.onrender.com`)
 
 ## Step 3: Get Backend URL
 After backend deploys, go to its dashboard and note the URL.
 
-Your backend is at: `https://your-service-name.onrender.com`
+Your backend is at: `https://communication-platform.onrender.com`
 
 ## Step 4: Deploy Frontend
 1. Back in Render → Click **"New +"** → **"Static Site"**
@@ -40,16 +41,16 @@ Your backend is at: `https://your-service-name.onrender.com`
    - **Build Command:** `npm install && npm run build`
    - **Publish Directory:** `build`
 4. Add **Environment Variables:**
-   - `REACT_APP_SERVER_URL` = `https://your-service-name.onrender.com` (from step 3)
+   - `REACT_APP_SERVER_URL` = `https://communication-platform.onrender.com` (from step 3)
 5. Click **"Create Static Site"**
 6. Wait 3-5 minutes
-7. **Copy your frontend URL** (looks like: `https://video-platform-frontend.onrender.com`)
+7. **Copy your frontend URL** (looks like: `https://communication-platform-1.onrender.com`)
 
 ## Step 5: Update Backend CORS & Redeploy
 1. Edit `server/index.js` line 13-19:
 ```javascript
 const allowedOrigins = [
-  'https://video-platform-frontend.onrender.com', // Your frontend URL from step 4
+  'https://communication-platform-1.onrender.com', // Your frontend URL from step 4
   'http://localhost:3000' // Keep for local dev
 ];
 
@@ -72,8 +73,8 @@ git push
 3. Render auto-deploys! (Wait 2-3 minutes)
 
 ## Done! 🎉
-- **Frontend:** https://your-service-name.onrender.com (static site URL)
-- **Backend:** https://video-platform-backend.onrender.com
+- **Frontend:** https://communication-platform-1.onrender.com (static site URL)
+- **Backend:** https://communication-platform.onrender.com
 
 Test it by opening frontend URL in two browsers/devices with same room ID!
 
@@ -113,3 +114,5 @@ Test it by opening frontend URL in two browsers/devices with same room ID!
 - **With TURN server:** +$0.04/min per user (optional, only if needed)
 
 Auto-deploys on every `git push`!
+
+````

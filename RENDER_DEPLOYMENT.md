@@ -54,7 +54,7 @@ git push -u origin main
 
 7. **Click "Create Web Service"**
 8. **Wait for deployment** (~2-3 minutes)
-9. **Copy your backend URL:** `https://your-service-name.onrender.com`
+9. **Copy your backend URL:** `https://communication-platform.onrender.com`
 
 ## Step 4: Update Frontend for Backend URL
 
@@ -62,7 +62,7 @@ Once backend is deployed, update the client:
 
 1. **Open client/.env.production:**
 ```
-REACT_APP_SERVER_URL=https://your-service-name.onrender.com
+REACT_APP_SERVER_URL=https://communication-platform.onrender.com
 ```
 
 2. **Also update client/src/components/VideoRoom.js if needed:**
@@ -88,11 +88,11 @@ git push
    - **Publish Directory:** `build`
 
 4. **Add Environment Variables:**
-   - `REACT_APP_SERVER_URL` = `https://your-service-name.onrender.com`
+   - `REACT_APP_SERVER_URL` = `https://communication-platform.onrender.com`
 
 5. **Click "Create Static Site"**
 6. **Wait for build and deployment** (~3-5 minutes)
-7. **Get your frontend URL:** `https://your-frontend-name.onrender.com`
+7. **Get your frontend URL:** `https://communication-platform-1.onrender.com`
 
 ## Step 6: Update Backend CORS
 
@@ -101,7 +101,7 @@ Now that you know both URLs, update backend CORS:
 1. **Edit server/index.js:**
 ```javascript
 const allowedOrigins = [
-  'https://your-frontend-name.onrender.com',
+   'https://communication-platform-1.onrender.com',
   'http://localhost:3000' // for local development
 ];
 
@@ -116,7 +116,7 @@ const io = new Server(server, {
 
 2. **Update environment variable in Render dashboard:**
    - Go to backend service settings
-   - Set `CLIENT_URL` = `https://your-frontend-name.onrender.com`
+   - Set `CLIENT_URL` = `https://communication-platform-1.onrender.com`
 
 3. **Commit and push:**
 ```bash
@@ -129,7 +129,7 @@ git push
 
 ## Step 7: Test Your Deployment
 
-1. **Open frontend URL** in browser: `https://your-frontend-name.onrender.com`
+1. **Open frontend URL** in browser: `https://communication-platform-1.onrender.com`
 2. **Create a room** and get room ID
 3. **Open in another browser/device** with same room ID
 4. **Verify:**
@@ -225,9 +225,9 @@ git push origin main
 
 ## Final URLs
 
-- **Frontend:** https://your-frontend-name.onrender.com
-- **Backend:** https://your-service-name.onrender.com
-- **API Health:** https://your-service-name.onrender.com/api/health
+- **Frontend:** https://communication-platform-1.onrender.com
+- **Backend:** https://communication-platform.onrender.com
+- **API Health:** https://communication-platform.onrender.com/api/health
 
 ## Deployment Complete! 🎉
 

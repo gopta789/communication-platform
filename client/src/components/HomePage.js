@@ -44,14 +44,15 @@ function HomePage({ onJoinRoom }) {
       });
       
       if (!response.ok) {
-        throw new Error('Failed to create room');
+        const text = await response.text().catch(() => '');
+        throw new Error(`Failed to create room (${response.status}) ${text}`);
       }
-      
+
       // Pass true to indicate this is a new room creation
       onJoinRoom(newRoomId, userName.trim(), true);
     } catch (err) {
       console.error('Error creating room:', err);
-      setError('Unable to create room. Please check your connection and try again.');
+      setError(err.message || 'Unable to create room. Please check your connection and try again.');
     } finally {
       setIsChecking(false);
     }
@@ -74,13 +75,17 @@ function HomePage({ onJoinRoom }) {
       
       while (!roomExists && attempts < maxAttempts) {
         const response = await fetch(`${SERVER_URL}/api/room/${roomId.trim()}`);
-        
+
         if (response.ok) {
           const roomData = await response.json();
           roomExists = true;
           // Room exists, proceed to join (pass false to indicate joining existing room)
           onJoinRoom(roomId.trim(), juserName.trim(), false);
           return;
+        } else {
+          // Log server response for debugging
+          const txt = await response.text().catch(() => '');
+          console.warn(`Room check failed: ${response.status} ${txt}`);
         }
         
         attempts++;

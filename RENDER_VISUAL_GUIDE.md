@@ -5,6 +5,14 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                    Your Computer (Local)                     │
 │  (React Client + Node.js Backend)                            │
+````markdown
+# Render Deployment - Visual Step-by-Step Guide
+
+## Architecture Overview
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Your Computer (Local)                     │
+│  (React Client + Node.js Backend)                            │
 └──────────────────────┬──────────────────────────────────────┘
                        │ git push
                        ↓
@@ -78,7 +86,7 @@ Render Dashboard
          │
          └─ Deploy!
               │
-              └─ https://video-platform-backend.onrender.com ✓
+              └─ https://communication-platform.onrender.com ✓
 ```
 
 ### 3️⃣ Render Frontend Deployment
@@ -92,23 +100,23 @@ Render Dashboard
          ├─ Build Command: npm install && npm run build
          ├─ Publish Directory: build
          ├─ Environment Variables:
-         │  └─ REACT_APP_SERVER_URL: https://video-platform-backend.onrender.com
+         │  └─ REACT_APP_SERVER_URL: https://communication-platform.onrender.com
          │
          └─ Deploy!
               │
-              └─ https://video-platform-frontend.onrender.com ✓
+              └─ https://communication-platform-1.onrender.com ✓
 ```
 
 ### 4️⃣ Connection Flow
 ```
-User opens: https://video-platform-frontend.onrender.com
+User opens: https://communication-platform-1.onrender.com
                           │
                           ├─ Loads React app
-                          ├─ Sets SERVER_URL = https://video-platform-backend.onrender.com
+                          ├─ Sets SERVER_URL = https://communication-platform.onrender.com
                           │
                           └─ Connects to WebSocket
                                │
-                               └─ socket.connect('https://video-platform-backend.onrender.com')
+                               └─ socket.connect('https://communication-platform.onrender.com')
                                     │
                                     └─ Backend receives connection ✓
 ```
@@ -148,12 +156,12 @@ video-platform/
 |----------|-------|
 | `NODE_ENV` | `production` |
 | `PORT` | `5000` |
-| `CLIENT_URL` | `https://your-frontend-url.onrender.com` |
+| `CLIENT_URL` | `https://communication-platform-1.onrender.com` |
 
 ### Frontend (Render Static Site)
 | Variable | Value |
 |----------|-------|
-| `REACT_APP_SERVER_URL` | `https://your-backend-url.onrender.com` |
+| `REACT_APP_SERVER_URL` | `https://communication-platform.onrender.com` |
 
 ## Data Flow Diagram
 
@@ -231,10 +239,10 @@ User B (Browser)
 
 ### After Deployment
 ```
-Frontend:  https://video-platform-frontend.onrender.com
-Backend:   https://video-platform-backend.onrender.com
+Frontend:  https://communication-platform-1.onrender.com
+Backend:   https://communication-platform.onrender.com
 
-Test endpoint: https://video-platform-backend.onrender.com/api/health
+Test endpoint: https://communication-platform.onrender.com/api/health
 Expected response: { "status": "ok", "message": "Server is running" }
 ```
 
@@ -310,3 +318,4 @@ Requires:
 ---
 
 **You're ready to deploy! Good luck! 🚀**
+````

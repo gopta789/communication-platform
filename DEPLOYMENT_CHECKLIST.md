@@ -84,13 +84,13 @@ cd ..
 ### Environment Variables (Backend)
 - [ ] `NODE_ENV` = `production`
 - [ ] `PORT` = `5000`
-- [ ] `CLIENT_URL` = `https://video-platform-frontend.onrender.com` (update after frontend deploys)
+  - [ ] `CLIENT_URL` = `https://communication-platform-1.onrender.com` (update after frontend deploys)
 
 ### After Backend Deploys
 - [ ] Status shows "Live" or "Running"
 - [ ] Logs show no errors
-- [ ] Note the URL: `https://video-platform-backend.onrender.com`
-- [ ] Test health endpoint: https://video-platform-backend.onrender.com/api/health
+- [ ] Note the URL: `https://communication-platform.onrender.com`
+- [ ] Test health endpoint: https://communication-platform.onrender.com/api/health
 - [ ] Should return: `{"status":"ok","message":"Server is running"}`
 
 ## ✅ Frontend Deployment
@@ -104,13 +104,13 @@ cd ..
 - [ ] Plan: `Free`
 
 ### Environment Variables (Frontend)
-- [ ] `REACT_APP_SERVER_URL` = `https://video-platform-backend.onrender.com` (from backend deployment)
+-- [ ] `REACT_APP_SERVER_URL` = `https://communication-platform.onrender.com` (from backend deployment)
 
 ### After Frontend Deploys
 - [ ] Status shows "Live"
 - [ ] Build log shows no errors
 - [ ] Site accessible at URL shown in dashboard
-- [ ] Note the URL: `https://video-platform-frontend.onrender.com`
+  - [ ] Note the URL: `https://communication-platform-1.onrender.com`
 - [ ] Page loads without blank screen
 
 ## ✅ Backend Update & Redeploy
@@ -120,7 +120,7 @@ cd ..
 2. [ ] Update `allowedOrigins`:
 ```javascript
 const allowedOrigins = [
-  'https://video-platform-frontend.onrender.com',
+  'https://communication-platform-1.onrender.com',
   'http://localhost:3000'
 ];
 ```
@@ -129,7 +129,7 @@ const allowedOrigins = [
 ### Update Backend Environment Variable
 1. [ ] Go to Render backend service dashboard
 2. [ ] Go to "Environment"
-3. [ ] Update `CLIENT_URL` = `https://video-platform-frontend.onrender.com`
+3. [ ] Update `CLIENT_URL` = `https://communication-platform-1.onrender.com`
 
 ### Redeploy Backend
 1. [ ] Push changes to GitHub:

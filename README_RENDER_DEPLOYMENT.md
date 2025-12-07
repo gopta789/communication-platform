@@ -38,7 +38,7 @@ git push -u origin main
 5. Set Root Directory to: server
 6. Click "Create Web Service"
 7. Wait 2-3 minutes
-8. Copy the URL shown (e.g., https://video-platform-backend.onrender.com)
+8. Copy the URL shown (e.g., https://communication-platform.onrender.com)
 ```
 
 ### 3. Deploy Frontend
@@ -51,7 +51,7 @@ git push -u origin main
    REACT_APP_SERVER_URL = [paste backend URL from step 2]
 6. Click "Create Static Site"
 7. Wait 3-5 minutes
-8. Copy the URL shown (e.g., https://video-platform-frontend.onrender.com)
+8. Copy the URL shown (e.g., https://communication-platform-1.onrender.com)
 ```
 
 ### 4. Update Backend CORS
@@ -73,7 +73,7 @@ git push
 ## What Each Component Does
 
 ### Backend (Node.js + Express + Socket.io)
-- Runs on: `https://video-platform-backend.onrender.com`
+- Runs on: `https://communication-platform.onrender.com`
 - Handles:
   - Room creation & management
   - WebRTC signaling (offer/answer/ICE)
@@ -81,7 +81,7 @@ git push
   - File persistence (rooms.json, messages.json)
 
 ### Frontend (React)
-- Runs on: `https://video-platform-frontend.onrender.com`
+- Runs on: `https://communication-platform-1.onrender.com`
 - Handles:
   - UI for creating/joining rooms
   - WebRTC peer connections
@@ -179,12 +179,12 @@ Every time you `git push`:
 ```
 PORT=5000
 NODE_ENV=production
-CLIENT_URL=https://video-platform-frontend.onrender.com
+CLIENT_URL=https://communication-platform-1.onrender.com
 ```
 
 ### Frontend (.env.production)
 ```
-REACT_APP_SERVER_URL=https://video-platform-backend.onrender.com
+REACT_APP_SERVER_URL=https://communication-platform.onrender.com
 ```
 
 Set these in Render dashboard:
@@ -223,7 +223,7 @@ cd ../client && npm run build
 
 ✅ **Backend deployed:**
 - Status shows "Live"
-- Health endpoint works: https://video-platform-backend.onrender.com/api/health
+- Health endpoint works: https://communication-platform.onrender.com/api/health
 - Logs show no errors
 
 ✅ **Frontend deployed:**

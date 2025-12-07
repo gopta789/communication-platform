@@ -59,10 +59,10 @@ git push -u origin main
 
 ```
 ✅ Backend deployed:
-   curl https://your-backend-url.onrender.com/api/health
+   curl https://communication-platform.onrender.com/api/health
    
 ✅ Frontend deployed:
-   Open https://your-frontend-url.onrender.com in browser
+   Open https://communication-platform-1.onrender.com in browser
    
 ✅ Connected:
    Create room, join from different browser
@@ -78,12 +78,12 @@ git push -u origin main
 |-----|-------|
 | `NODE_ENV` | `production` |
 | `PORT` | `5000` |
-| `CLIENT_URL` | `https://your-frontend.onrender.com` |
+| `CLIENT_URL` | `https://communication-platform-1.onrender.com` |
 
 ### Frontend
 | Key | Value |
 |-----|-------|
-| `REACT_APP_SERVER_URL` | `https://your-backend.onrender.com` |
+| `REACT_APP_SERVER_URL` | `https://communication-platform.onrender.com` |
 
 ---
 
@@ -111,11 +111,11 @@ git push -u origin main
 ## URLs After Deployment
 
 ```
-Frontend: https://[your-service-name]-frontend.onrender.com
-Backend:  https://[your-service-name]-backend.onrender.com
+Frontend: https://communication-platform-1.onrender.com
+Backend:  https://communication-platform.onrender.com
 
 Test endpoint:
-https://[your-service-name]-backend.onrender.com/api/health
+https://communication-platform.onrender.com/api/health
 
 Should return:
 { "status": "ok", "message": "Server is running" }
@@ -179,7 +179,7 @@ Optional:
 git push origin main
 
 # Monitor backend
-curl https://your-backend.onrender.com/api/health
+curl https://communication-platform.onrender.com/api/health
 
 # Force redeploy (if needed)
 # Use Render dashboard → Deploys → "Trigger Deploy"
@@ -246,9 +246,9 @@ Total: ~20 minutes to live on internet! ✨
 
 ## The 3 Most Important URLs
 
-1. **Your app:** `https://your-frontend.onrender.com`
-2. **Your backend API:** `https://your-backend.onrender.com`
-3. **Backend health:** `https://your-backend.onrender.com/api/health`
+1. **Your app:** `https://communication-platform-1.onrender.com`
+2. **Your backend API:** `https://communication-platform.onrender.com`
+3. **Backend health:** `https://communication-platform.onrender.com/api/health`
 
 Test #3 to verify everything works!
 
