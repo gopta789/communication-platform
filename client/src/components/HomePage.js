@@ -33,19 +33,29 @@ function HomePage({ onJoinRoom }) {
     setError('');
     setIsChecking(true);
     
+    const newRoomId = uuidv4();
+    console.log('Creating room, SERVER_URL =', SERVER_URL);
+
     try {
-      const newRoomId = uuidv4();
-      
-      // Create the room on the server first
+      // Create the room on the server first (POST)
       const response = await fetch(`${SERVER_URL}/api/room/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roomId: newRoomId })
       });
-      
+
       if (!response.ok) {
         const text = await response.text().catch(() => '');
-        throw new Error(`Failed to create room (${response.status}) ${text}`);
+        // Try fallback GET creation if POST fails (some intermediaries block POST)
+        console.warn('POST /api/room/create failed, attempting fallback GET', response.status, text);
+        const fallback = await fetch(`${SERVER_URL}/api/room/create?roomId=${encodeURIComponent(newRoomId)}`);
+        if (fallback.ok) {
+          // Fallback succeeded
+          onJoinRoom(newRoomId, userName.trim(), true);
+          return;
+        }
+        const ftext = await fallback.text().catch(() => '');
+        throw new Error(`Failed to create room (POST ${response.status}) ${text}; fallback GET (${fallback.status}) ${ftext}`);
       }
 
       // Pass true to indicate this is a new room creation

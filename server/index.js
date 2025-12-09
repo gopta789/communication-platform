@@ -91,6 +91,16 @@ function saveRooms() {
 // Load existing rooms on startup
 loadRooms();
 
+// Log incoming requests for debugging (will appear in Render logs)
+app.use((req, res, next) => {
+  try {
+    console.log(`Incoming request: ${req.method} ${req.originalUrl} - Content-Type: ${req.headers['content-type']}`);
+  } catch (err) {
+    // ignore logging errors
+  }
+  next();
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
@@ -360,4 +370,33 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Socket.io server ready for connections`);
+});
+
+// Fallback: allow creating a room via GET (query param) to support clients that cannot POST
+app.get('/api/room/create', (req, res) => {
+  try {
+    const roomIdRaw = req.query.roomId;
+    let roomId = typeof roomIdRaw === 'string' ? roomIdRaw.trim() : null;
+
+    if (!roomId) {
+      return res.status(400).json({ error: 'roomId query param is required' });
+    }
+
+    if (roomId.length < 4 || roomId.length > 200) {
+      return res.status(400).json({ error: 'roomId length invalid' });
+    }
+
+    if (!rooms.has(roomId)) {
+      rooms.set(roomId, { participants: [], createdAt: new Date().toISOString(), persistent: true });
+      saveRooms();
+      console.log(`Room ${roomId} created via GET and saved to disk`);
+      return res.status(201).json({ roomId, participants: 0, createdAt: rooms.get(roomId).createdAt, exists: true });
+    }
+
+    const room = rooms.get(roomId);
+    return res.status(200).json({ roomId, participants: room.participants.length, createdAt: room.createdAt, exists: true });
+  } catch (err) {
+    console.error('Error in GET /api/room/create:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 });
