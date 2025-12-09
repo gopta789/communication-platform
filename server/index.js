@@ -27,6 +27,15 @@ const io = new Server(server, {
 });
 app.use(express.json());
 
+// Handle malformed JSON bodies gracefully and return JSON error
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    console.error('Malformed JSON payload:', err.message);
+    return res.status(400).json({ error: 'Invalid JSON payload' });
+  }
+  next(err);
+});
+
 // Store active rooms and their participants
 const rooms = new Map();
 
@@ -136,34 +145,45 @@ app.post('/api/contact', (req, res) => {
 
 // Create a new room
 app.post('/api/room/create', (req, res) => {
-  const { roomId } = req.body;
-  
-  if (!roomId) {
-    return res.status(400).json({ error: 'roomId is required' });
-  }
-  
-  console.log(`API: Creating room ${roomId}`);
-  
-  // Create room if it doesn't exist
-  if (!rooms.has(roomId)) {
-    rooms.set(roomId, {
-      participants: [],
-      createdAt: new Date().toISOString(),
-      persistent: true
-    });
-    saveRooms();
-    console.log(`Room ${roomId} created via API and saved to disk`);
-  } else {
+  try {
+    const body = req.body || {};
+    console.log('API /api/room/create body:', body);
+
+    let { roomId } = body;
+    if (typeof roomId === 'string') {
+      roomId = roomId.trim();
+    }
+
+    if (!roomId) {
+      return res.status(400).json({ error: 'roomId is required' });
+    }
+
+    // Basic validation: length and characters (simple UUID or short id allowed)
+    if (roomId.length < 4 || roomId.length > 200) {
+      return res.status(400).json({ error: 'roomId length invalid' });
+    }
+
+    console.log(`API: Creating room ${roomId}`);
+
+    // Create room if it doesn't exist
+    if (!rooms.has(roomId)) {
+      rooms.set(roomId, {
+        participants: [],
+        createdAt: new Date().toISOString(),
+        persistent: true
+      });
+      saveRooms();
+      console.log(`Room ${roomId} created via API and saved to disk`);
+      return res.status(201).json({ roomId, participants: 0, createdAt: rooms.get(roomId).createdAt, exists: true });
+    }
+
     console.log(`Room ${roomId} already exists`);
+    const room = rooms.get(roomId);
+    return res.status(200).json({ roomId, participants: room.participants.length, createdAt: room.createdAt, exists: true });
+  } catch (err) {
+    console.error('Error in /api/room/create:', err);
+    return res.status(500).json({ error: 'Internal server error' });
   }
-  
-  const room = rooms.get(roomId);
-  res.json({
-    roomId,
-    participants: room.participants.length,
-    createdAt: room.createdAt,
-    exists: true
-  });
 });
 
 // Get room info
